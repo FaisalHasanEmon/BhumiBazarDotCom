@@ -1,0 +1,10 @@
+.passwordError {
+  font-size: 0.8rem;
+  margin-top: 10px;
+  color: red;
+  border: 1px solid antiquewhite;
+  border-radius: 8px;
+  padding: 4px;
+  padding-inline: 10px;
+  background-color: antiquewhite;
+}
