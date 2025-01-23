@@ -12,7 +12,7 @@ export const AuthContext = createContext(null);
 // eslint-disable-next-line react/prop-types
 const AuthProvider = ({ children }) => {
   // Use States
-  const [loading, setLoading] = useState(false); //loading state
+  const [loading, setLoading] = useState(true); //loading state
   const [user, setUser] = useState(); //user state
 
   // auth
@@ -47,7 +47,15 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
   const name = "emon";
-  const authInfo = { createUser, login, logout, user, name };
+  const authInfo = {
+    createUser,
+    login,
+    logout,
+    user,
+    name,
+    loading,
+    setLoading,
+  };
 
   return (
     <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>

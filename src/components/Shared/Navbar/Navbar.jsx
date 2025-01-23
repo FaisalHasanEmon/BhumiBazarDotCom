@@ -14,9 +14,13 @@ const Navbar = () => {
       <li>
         <NavLink to="allproperties">All Properties</NavLink>
       </li>
-      <li>
-        <NavLink to="dashboard">Dashboard</NavLink>
-      </li>
+      {user && (
+        <>
+          <li>
+            <NavLink to="dashboard">Dashboard</NavLink>
+          </li>
+        </>
+      )}
     </>
   );
   return (

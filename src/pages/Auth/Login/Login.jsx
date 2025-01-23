@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { BsGoogle } from "react-icons/bs";
 import { LuEye, LuEyeOff } from "react-icons/lu";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./Login.css";
 import useAuth from "../../../hooks/useAuth";
@@ -10,7 +10,7 @@ const Login = () => {
   const { login } = useAuth();
   const [seePassword, setSeePassword] = useState(false);
   const navigate = useNavigate();
-
+  const location = useLocation();
   const {
     register,
     handleSubmit,
@@ -23,7 +23,7 @@ const Login = () => {
     login(data.email, data.password)
       .then((res) => {
         console.log(res);
-        navigate("/");
+        navigate(location?.state ? location.state : "/");
       })
       .then((er) => console.log(er));
     reset();
