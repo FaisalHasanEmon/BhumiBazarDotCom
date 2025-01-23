@@ -5,26 +5,37 @@ import { Link, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./SignUp.css";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const SignUp = () => {
   const { createUser, user } = useAuth();
   const [seePassword, setSeePassword] = useState(false);
   const navigate = useNavigate();
+  const axiosPublic = useAxiosPublic();
   //   const
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    console.log(data);
-    createUser(data.email, data.password)
+  const onSubmit = (formData) => {
+    console.log(formData);
+    createUser(formData.email, formData.password)
       .then((data) => {
-        console.log(data);
-        navigate("/");
+        console.log(data.user.email);
+        if (data.user.email) {
+          navigate("/");
+          const newUser = {
+            userEmail: data.user.email,
+            role: "user",
+          };
+          axiosPublic
+            .post("/users", newUser)
+            .then((res) => console.log(res.data))
+            .catch((er) => console.log(er));
+        }
       })
       .catch((er) => console.log(er));
 
