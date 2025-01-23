@@ -2,7 +2,7 @@ import React from "react";
 import useAuth from "../hooks/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
 
-const PrivateRoute = ({ children }) => {
+const LoginSignupRoute = ({ children }) => {
   const location = useLocation();
   const { user, loading, setLoading } = useAuth();
 
@@ -14,11 +14,11 @@ const PrivateRoute = ({ children }) => {
     );
   }
 
-  if (user && user?.email) {
+  if (!user) {
     setLoading(false);
     return children;
   }
-  return <Navigate state={location.pathname} to="/login" replace></Navigate>;
+  return <Navigate state={location.pathname} to="/" replace></Navigate>;
 };
 
-export default PrivateRoute;
+export default LoginSignupRoute;

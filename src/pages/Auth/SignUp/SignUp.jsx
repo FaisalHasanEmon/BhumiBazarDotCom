@@ -8,7 +8,7 @@ import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const SignUp = () => {
-  const { createUser, user } = useAuth();
+  const { createUser, user, updateUser } = useAuth();
   const [seePassword, setSeePassword] = useState(false);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
@@ -20,22 +20,31 @@ const SignUp = () => {
     formState: { errors },
   } = useForm();
 
+  // Step 1:After submitting the sign up form do next
   const onSubmit = (formData) => {
-    console.log(formData);
+    //Step 2: collecting the user name, email and password create user with "email and password"
     createUser(formData.email, formData.password)
       .then((data) => {
-        console.log(data.user.email);
-        if (data.user.email) {
-          navigate("/");
-          const newUser = {
-            userEmail: data.user.email,
-            role: "user",
-          };
-          axiosPublic
-            .post("/users", newUser)
-            .then((res) => console.log(res.data))
-            .catch((er) => console.log(er));
-        }
+        //Step 3: after successfully creating the user take the user name, email and other information for storing data to database
+        const newUser = {
+          email: data.user.email,
+          name: formData.name,
+          role: "user",
+          creationTime: data.user.metadata.creationTime,
+        };
+
+        // Step 3.1: Post or update to database
+        axiosPublic
+          .post("/users", newUser)
+          .then((res) => console.log(res.data))
+          .catch((er) => console.log(er));
+        //Step 4: After successfully creating an user with email and password update user name
+        updateUser(formData.name, "")
+          .then(() => {
+            // Step 5: After successfully updating the user name navigate the user to home page
+            navigate("/");
+          })
+          .catch((er) => console.log(er));
       })
       .catch((er) => console.log(er));
 
@@ -47,6 +56,17 @@ const SignUp = () => {
         <div className=" card bg-white/5 backdrop-blur-lg w-full max-w-sm shrink-0 border border-white  shadow-slate-900 shadow-2xl">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">
             <h2 className="text-center text-3xl">SignUp</h2>
+            <div className="form-control">
+              <label className="label">
+                <span className="label-text">Name</span>
+              </label>
+              <input
+                type="text"
+                placeholder="name"
+                className="input input-bordered"
+                {...register("name", { required: true })}
+              />
+            </div>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>

@@ -7,14 +7,13 @@ import "./Login.css";
 import useAuth from "../../../hooks/useAuth";
 
 const Login = () => {
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   const [seePassword, setSeePassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors },
   } = useForm();
@@ -27,6 +26,12 @@ const Login = () => {
       })
       .then((er) => console.log(er));
     reset();
+  };
+
+  const handleLoginWithGoogle = () => {
+    googleLogin()
+      .then((res) => console.log(res))
+      .catch((er) => console.log(er));
   };
   return (
     <div className=" bg-authLoginBg bg-no-repeat  bg-cover md:bg-top bg-center w-screen h-screen absolute left-0 flex justify-center items-center">
@@ -86,7 +91,10 @@ const Login = () => {
             </div>
             <div className="divider">Social Login</div>
             <div className="form-control">
-              <button className="btn border-2 bg-white border-gray-600 hover:bg-gray-600 hover:text-white  hover:font-bold">
+              <button
+                onClick={handleLoginWithGoogle}
+                className="btn border-2 bg-white border-gray-600 hover:bg-gray-600 hover:text-white  hover:font-bold"
+              >
                 <BsGoogle></BsGoogle> Sign In With Google
               </button>
             </div>
