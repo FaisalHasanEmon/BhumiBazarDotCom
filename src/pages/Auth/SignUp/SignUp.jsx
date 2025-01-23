@@ -29,6 +29,7 @@ const SignUp = () => {
         const newUser = {
           email: data.user.email,
           name: formData.name,
+          photo: "",
           role: "user",
           creationTime: data.user.metadata.creationTime,
         };

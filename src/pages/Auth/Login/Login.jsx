@@ -5,12 +5,14 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import "./Login.css";
 import useAuth from "../../../hooks/useAuth";
+import useAxiosPublic from "../../../hooks/useAxiosPublic";
 
 const Login = () => {
   const { login, googleLogin } = useAuth();
   const [seePassword, setSeePassword] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
+  const axiosPublic = useAxiosPublic();
   const {
     register,
     handleSubmit,
@@ -29,9 +31,18 @@ const Login = () => {
   };
 
   const handleLoginWithGoogle = () => {
-    googleLogin()
-      .then((res) => console.log(res))
-      .catch((er) => console.log(er));
+    googleLogin().then((res) => {
+      const newUser = {
+        name: res.user.displayName,
+        email: res.user.email,
+        photo: res.user.photoURL,
+        creationTime: res.user.metadata.creationTime,
+        role: "user",
+      };
+      axiosPublic
+        .post("/users", newUser)
+        .then(navigate(location?.state ? location.state : "/"));
+    });
   };
   return (
     <div className=" bg-authLoginBg bg-no-repeat  bg-cover md:bg-top bg-center w-screen h-screen absolute left-0 flex justify-center items-center">
@@ -65,7 +76,6 @@ const Login = () => {
                   minLength: 6,
                 })}
               />
-              {console.log(errors)}
               {errors.password?.type === "pattern" && (
                 <span className="passwordError">
                   Password must consists of at least one uppercase, one lower
