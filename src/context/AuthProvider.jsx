@@ -53,7 +53,7 @@ const AuthProvider = ({ children }) => {
     setLoading(false);
     return signOut(auth);
   };
-
+  // const userEmail = { email: user.email };
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);

@@ -1,9 +1,20 @@
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
+import { useEffect, useState } from "react";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
+import userUserInfo from "../../../hooks/userUserInfo";
 
 const DashboardMenu = () => {
   const { user, logout, name } = useAuth();
+  const [userInfo, isUserPending] = userUserInfo();
+  if (isUserPending) {
+    return (
+      <>
+        <div>Loading</div>
+      </>
+    );
+  }
   const tabs = (
     <>
       <li>
@@ -12,14 +23,56 @@ const DashboardMenu = () => {
       <li>
         <NavLink to="/allproperties">All Properties</NavLink>
       </li>
+      <div className="divider"></div>
       {user && (
         <>
           <li>
-            <NavLink to="admin">Admin</NavLink>
+            <NavLink to="profile">My Profile</NavLink>
           </li>
-          <li>
-            <NavLink to="agent">Agent</NavLink>
-          </li>
+          {userInfo?.role === "user" && (
+            <>
+              <li>
+                <NavLink to="wishlist">Wishlist</NavLink>
+              </li>
+              <li>
+                <NavLink to="property-bought">Property Bought</NavLink>
+              </li>
+              <li>
+                <NavLink to="my-reviews">My Reviews</NavLink>
+              </li>
+            </>
+          )}
+          {userInfo?.role === "agent" && (
+            <>
+              <li>
+                <NavLink to="add-property">Add Property</NavLink>
+              </li>
+              <li>
+                <NavLink to="added-property">Added properties</NavLink>
+              </li>
+              <li>
+                <NavLink to="sold-properties">Sold Properties</NavLink>
+              </li>
+              <li>
+                <NavLink to="requested-properties">
+                  Requested Properties
+                </NavLink>
+              </li>
+            </>
+          )}
+          {userInfo?.role === "admin" && (
+            <>
+              <li>
+                <NavLink to="manage-properties">Manage Properties</NavLink>
+              </li>
+              <li>
+                <NavLink to="manage-users">Manage Users</NavLink>
+              </li>
+              <li>
+                <NavLink to="manage-reviews">Manage Reviews</NavLink>
+              </li>
+            </>
+          )}
         </>
       )}
     </>

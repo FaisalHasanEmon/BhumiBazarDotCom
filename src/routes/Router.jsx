@@ -7,9 +7,20 @@ import SignUp from "../pages/Auth/SignUp/SignUp";
 import PrivateRoute from "./PrivateRoute";
 import LoginSignupRoute from "./LoginSignupRoute";
 import DashboardLayout from "../layouts/DashboardLayout";
-import Dashboard from "../pages/Dashboard/Dashboard/Dashboard";
-import Agent from "../pages/Dashboard/Agent/Agent";
-import Admin from "../pages/Dashboard/Admin/Admin";
+import Profile from "../pages/Dashboard/Dashboard/Profile";
+import MyReviews from "../pages/Dashboard/User/MyReviews";
+import Wishlist from "../pages/Dashboard/User/Wishlist";
+import PropertyBought from "../pages/Dashboard/User/PropertyBought";
+import AddProperty from "../pages/Dashboard/Agent/AddProperty";
+import AddedProperty from "../pages/Dashboard/Agent/AddedProperty";
+import SoldProperties from "../pages/Dashboard/Agent/SoldProperties";
+import RequestedProperties from "../pages/Dashboard/Agent/RequestedProperties";
+import ManageProperties from "../pages/Dashboard/Admin/ManageProperties";
+import ManageUsers from "../pages/Dashboard/Admin/ManageUsers";
+import ManageReviews from "../pages/Dashboard/Admin/ManageReviews";
+import AgentRoute from "./AgentRoute";
+import AdminRoute from "./AdminRoute";
+import UserRoute from "./UserRoute";
 
 const router = createBrowserRouter([
   {
@@ -51,16 +62,88 @@ const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "",
-        element: <Dashboard></Dashboard>,
+        path: "profile",
+        element: <Profile></Profile>,
       },
       {
-        path: "agent",
-        element: <Agent></Agent>,
+        path: "my-reviews",
+        element: (
+          <UserRoute>
+            <MyReviews></MyReviews>
+          </UserRoute>
+        ),
       },
       {
-        path: "admin",
-        element: <Admin></Admin>,
+        path: "wishlist",
+        element: (
+          <UserRoute>
+            <Wishlist></Wishlist>
+          </UserRoute>
+        ),
+      },
+      {
+        path: "property-bought",
+        element: (
+          <UserRoute>
+            <PropertyBought></PropertyBought>
+          </UserRoute>
+        ),
+      },
+      {
+        path: "add-property",
+        element: (
+          <AgentRoute>
+            <AddProperty></AddProperty>
+          </AgentRoute>
+        ),
+      },
+      {
+        path: "added-property",
+        element: (
+          <AgentRoute>
+            <AddedProperty></AddedProperty>
+          </AgentRoute>
+        ),
+      },
+      {
+        path: "sold-properties",
+        element: (
+          <AgentRoute>
+            <SoldProperties></SoldProperties>
+          </AgentRoute>
+        ),
+      },
+      {
+        path: "requested-properties",
+        element: (
+          <AgentRoute>
+            <RequestedProperties></RequestedProperties>
+          </AgentRoute>
+        ),
+      },
+      {
+        path: "manage-properties",
+        element: (
+          <AdminRoute>
+            <ManageProperties></ManageProperties>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-users",
+        element: (
+          <AdminRoute>
+            <ManageUsers></ManageUsers>
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "manage-reviews",
+        element: (
+          <AdminRoute>
+            <ManageReviews></ManageReviews>
+          </AdminRoute>
+        ),
       },
     ],
   },
