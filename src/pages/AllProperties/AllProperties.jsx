@@ -1,7 +1,19 @@
-import React from "react";
+import useProperty from "../../hooks/useProperty";
 
 const AllProperties = () => {
-  return <div>This is all properties page</div>;
+  const [properties, isPropertyLoading] = useProperty();
+  if (isPropertyLoading) {
+    return <div>Loading...</div>;
+  }
+  return (
+    <div>
+      {properties.map((property) => (
+        <div key={property._id}>
+          <img src={property?.propertyImage} />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 export default AllProperties;

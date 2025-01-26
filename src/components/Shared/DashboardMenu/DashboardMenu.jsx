@@ -4,11 +4,13 @@ import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
 import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import userUserInfo from "../../../hooks/userUserInfo";
+import useProperty from "../../../hooks/useProperty";
 
 const DashboardMenu = () => {
   const { user, logout, name } = useAuth();
   const [userInfo, isUserPending] = userUserInfo();
-  if (isUserPending) {
+  const [properties, isPropertyLoading] = useProperty();
+  if (isUserPending || isPropertyLoading) {
     return (
       <>
         <div>Loading</div>
@@ -22,6 +24,9 @@ const DashboardMenu = () => {
       </li>
       <li>
         <NavLink to="/allproperties">All Properties</NavLink>
+      </li>
+      <li>
+        Total Properties : <span>{properties.length}</span>
       </li>
       <div className="divider"></div>
       {user && (

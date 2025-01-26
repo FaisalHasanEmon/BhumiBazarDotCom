@@ -1,5 +1,6 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
+import useProperty from "../../../hooks/useProperty";
 
 const Navbar = () => {
   const { user, logout, name } = useAuth();
@@ -18,7 +19,7 @@ const Navbar = () => {
       {user && (
         <>
           <li>
-            <NavLink to="/dashboard/">Dashboard</NavLink>
+            <NavLink to="/dashboard/profile">Dashboard</NavLink>
           </li>
         </>
       )}
