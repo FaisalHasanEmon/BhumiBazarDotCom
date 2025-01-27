@@ -42,8 +42,8 @@ const router = createBrowserRouter([
       {
         path: "propertyDetails/:id",
         element: <PropertyDetails></PropertyDetails>,
-        // loader: ({ params }) =>
-        //   axiosSecure.get(`/propertyDetails/${params.id}`),
+        loader: ({ params }) =>
+          fetch(`http://localhost:5555/propertyDetails/${params.id}`),
       },
       {
         path: "login",
