@@ -21,6 +21,10 @@ import ManageReviews from "../pages/Dashboard/Admin/ManageReviews";
 import AgentRoute from "./AgentRoute";
 import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
+import PropertyDetails from "../pages/PropertyDetails/PropertyDetails";
+import useAxiosSecure from "../hooks/useAxiosSecure";
+
+const axiosSecure = useAxiosSecure();
 
 const router = createBrowserRouter([
   {
@@ -34,6 +38,12 @@ const router = createBrowserRouter([
       {
         path: "allproperties",
         element: <AllProperties></AllProperties>,
+      },
+      {
+        path: "propertyDetails/:id",
+        element: <PropertyDetails></PropertyDetails>,
+        // loader: ({ params }) =>
+        //   axiosSecure.get(`/propertyDetails/${params.id}`),
       },
       {
         path: "login",

@@ -1,3 +1,4 @@
+import PropertyCard from "../../components/Shared/PropertyCard/PropertyCard";
 import useProperty from "../../hooks/useProperty";
 
 const AllProperties = () => {
@@ -6,11 +7,9 @@ const AllProperties = () => {
     return <div>Loading...</div>;
   }
   return (
-    <div>
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
       {properties.map((property) => (
-        <div key={property._id}>
-          <img src={property?.propertyImage} />
-        </div>
+        <PropertyCard key={property?._id} property={property}></PropertyCard>
       ))}
     </div>
   );
