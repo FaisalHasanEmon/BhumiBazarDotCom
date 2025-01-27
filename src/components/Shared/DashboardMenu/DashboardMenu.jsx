@@ -1,7 +1,6 @@
 import { NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
 import { MdOutlineKeyboardDoubleArrowRight } from "react-icons/md";
-import { useEffect, useState } from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import userUserInfo from "../../../hooks/userUserInfo";
 import useProperty from "../../../hooks/useProperty";
@@ -12,6 +11,12 @@ const DashboardMenu = () => {
 
   const tabs = (
     <>
+      <li>
+        <NavLink to="/" className="lg:text-xl font-bold">
+          BhumiBazarDotCom
+        </NavLink>
+      </li>
+      <div className="divider"></div>
       <li>
         <NavLink to="/">Home</NavLink>
       </li>
@@ -74,7 +79,7 @@ const DashboardMenu = () => {
     </>
   );
   return (
-    <div className="bg-base-200 lg:bg-white col-span-0 md:col-span-2  md:drawer-open   ">
+    <div className="bg-base-200 lg:bg-white col-span-0 md:col-span-3 lg:col-span-2  md:drawer-open   ">
       <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content  flex flex-col items-start justify-start">
         {/* Page content here */}
@@ -93,6 +98,7 @@ const DashboardMenu = () => {
         ></label>
         <ul className="menu bg-base-200 text-base-content min-h-full w-6/12 md:w-full p-4">
           {/* Sidebar content here */}
+
           {tabs}
         </ul>
       </div>

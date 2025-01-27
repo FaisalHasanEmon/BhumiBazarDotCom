@@ -1,6 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../../hooks/useAuth";
-import useProperty from "../../../hooks/useProperty";
 
 const Navbar = () => {
   const { user, logout, name } = useAuth();
@@ -52,7 +51,9 @@ const Navbar = () => {
             {tabs}
           </ul>
         </div>
-        <a className="btn btn-ghost text-xl">BhumiBazarDotCom</a>
+        <Link to="/" className="btn btn-ghost text-2xl font-bold">
+          BhumiBazarDotCom
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{tabs}</ul>

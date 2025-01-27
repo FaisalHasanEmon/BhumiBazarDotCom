@@ -65,14 +65,14 @@ const AddProperty = () => {
         agentName: data.agentName,
         agentEmail: data.agentEmail,
         propertyImage: res.data.data.display_url,
-        verificationStatus: "pending",
+        verificationStatus: "Pending",
       };
 
       const addPropertyRes = await axiosSecure.post("/properties", property);
 
       if (addPropertyRes.data.insertedId) {
-        notifySuccess("Property Successfully Added");
         reset();
+        notifySuccess("Property Successfully Added");
         refetchProperty();
       }
     }

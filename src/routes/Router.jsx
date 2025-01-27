@@ -37,11 +37,19 @@ const router = createBrowserRouter([
       },
       {
         path: "allproperties",
-        element: <AllProperties></AllProperties>,
+        element: (
+          <PrivateRoute>
+            <AllProperties></AllProperties>
+          </PrivateRoute>
+        ),
       },
       {
         path: "propertyDetails/:id",
-        element: <PropertyDetails></PropertyDetails>,
+        element: (
+          <PrivateRoute>
+            <PropertyDetails></PropertyDetails>
+          </PrivateRoute>
+        ),
         loader: ({ params }) =>
           fetch(`http://localhost:5555/propertyDetails/${params.id}`),
       },

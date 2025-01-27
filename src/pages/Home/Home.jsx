@@ -1,7 +1,9 @@
 import useAuth from "../../hooks/useAuth";
+import userUserInfo from "../../hooks/userUserInfo";
 
 const Home = () => {
   const { user } = useAuth();
+  const [userInfo] = userUserInfo();
 
   return (
     <div>
@@ -10,6 +12,7 @@ const Home = () => {
           <div>
             <p>User Name:{user.displayName}</p>
             <p>User Email:{user.email}</p>
+            <p>User Role:{userInfo?.role}</p>
           </div>
         </>
       ) : (

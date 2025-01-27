@@ -69,12 +69,21 @@ const PropertyDetails = () => {
     setRating(0); // Reset the rating
     document.getElementById("my_modal_1").close(); // Close the modal
   };
+  const currentPropertyReviews = userReviews?.filter(
+    (item) => item.propertyId === propertyDetails._id
+  );
   console.log(userReviews);
   console.log(propertyDetails);
+  console.log(propertyDetails._id);
+  console.log(currentPropertyReviews);
+
   return (
     <div>
+      {/* Property Details Caption */}
       <h1 className="text-center text-3xl font-bold my-3">Property Details</h1>
+      {/* Property Details Section Starts */}
       <div className="flex flex-col gap-5 lg:flex-row *:border ">
+        {/* Property Image Section Starts */}
         <figure className="overflow-clip lg:h-[450px] rounded-lg">
           <img
             src={propertyDetails?.propertyImage}
@@ -82,6 +91,9 @@ const PropertyDetails = () => {
             className="w-full lg:h-full lg:object-cover "
           />
         </figure>
+        {/* Property Image Section Ends */}
+
+        {/* Property Details Starts */}
         <div className="card-body lg:justify-between bg-slate-200 rounded-lg">
           <div>
             <div>
@@ -91,7 +103,7 @@ const PropertyDetails = () => {
                   {propertyDetails?.propertyTitle}
                 </h2>
                 <div>
-                  {(propertyDetails?.verificationStatus).toLowerCase() ===
+                  {propertyDetails?.verificationStatus?.toLowerCase() ===
                     "verified" && (
                     <h2 className="border p-1 rounded-[10px] bg-green-500 text-white font-bold">
                       {propertyDetails?.verificationStatus}
@@ -149,7 +161,7 @@ const PropertyDetails = () => {
           </div>
           <div className="mt-5 flex gap-1">
             <button
-              disabled={(userInfo?.role).toLowerCase === "user" ? false : true}
+              disabled={userInfo.role.toLowerCase() === "user" ? false : true}
               className="btn border-2 border-green-500 font-bold flex"
             >
               <FaRegFaceGrinHearts />
@@ -164,38 +176,54 @@ const PropertyDetails = () => {
             </button>
           </div>
         </div>
+        {/* Property Details Ends */}
       </div>
-      {/* Review Section */}
+      {/* Property Details Section Ends */}
+
+      {/* Review Section Starts*/}
       <div className="lg:w-6/12  mt-5 h-96 border-2 border-green-500 rounded-lg overflow-y-scroll mb-5 p-2">
         <p className="text-center font-bold text-lg">User Reviews</p>
-        {userReviews?.map((review) => (
-          <div
-            key={review._id}
-            className="flex gap-1 border justify-between border-black rounded-md my-1 p-1"
-          >
-            <div className="flex gap-2">
-              <figure className="w-12 h-12 rounded-xl border">
-                <img src={review?.reviewerPhoto} alt="Photo" />
-              </figure>
-              <div className="*:border ">
-                <div className="flex gap-5 text-base">
-                  <p className="flex gap-1 font-bold">{review?.reviewerName}</p>
-                  <p className="flex justify-center items-center  font-bold">
-                    {review?.rating}
-                    <IoIosStar color="yellow" />
-                  </p>
+        {currentPropertyReviews.length === 0 ? (
+          <>
+            <h1 className="flex justify-center items-center text-xl font-bold">
+              No Reviews
+            </h1>
+          </>
+        ) : (
+          <>
+            {currentPropertyReviews?.map((review) => (
+              <div
+                key={review._id}
+                className="flex gap-1 border justify-between border-black rounded-md my-1 p-1"
+              >
+                <div className="flex gap-2">
+                  <figure className="w-12 h-12 rounded-xl border">
+                    <img src={review?.reviewerPhoto} alt="Photo" />
+                  </figure>
+                  <div>
+                    <div className="flex gap-5 text-base">
+                      <p className="flex gap-1 font-bold">
+                        {review?.reviewerName}
+                      </p>
+                      <p className="flex justify-center items-center  font-bold">
+                        {review?.rating}
+                        <IoIosStar color="yellow" />
+                      </p>
+                    </div>
+                    <p>{review?.review}</p>
+                  </div>
                 </div>
-                <p>{review?.review}</p>
+                <div>
+                  <p>{review?.reviewDate}</p>
+                </div>
               </div>
-            </div>
-            <div>
-              <p>{review?.reviewDate}</p>
-            </div>
-          </div>
-        ))}
+            ))}
+          </>
+        )}
       </div>
+      {/* Review Section Ends*/}
 
-      {/* Modal */}
+      {/* Modal Starts*/}
       <dialog id="my_modal_1" className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg">Submit Your Review</h3>
@@ -252,6 +280,7 @@ const PropertyDetails = () => {
           </div>
         </div>
       </dialog>
+      {/* Modal Starts*/}
     </div>
   );
 };
