@@ -15,6 +15,8 @@ import {
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import getFormattedDate from "../../utils/utilities";
 import useTheme from "../../hooks/useTheme";
+import useReviews from "../../hooks/useReviews";
+import { IoIosStar } from "react-icons/io";
 
 const PropertyDetails = () => {
   // Use States
@@ -24,9 +26,9 @@ const PropertyDetails = () => {
   const [userInfo, isUserPending] = userUserInfo();
   const propertyDetails = useLoaderData();
   const { notifySuccess } = useTheme();
-
+  const [userReviews, isReviewsLoading, refetchReviews] = useReviews();
   const axiosSecure = useAxiosSecure();
-  if (isUserPending) {
+  if (isUserPending || isReviewsLoading) {
     return <p>Loading... User Info</p>;
   }
 
@@ -43,8 +45,10 @@ const PropertyDetails = () => {
       reviewerName: userInfo?.name,
       reviewerEmail: userInfo?.email,
       reviewerRole: userInfo?.role,
-      reviewerPhot: userInfo?.photo,
-      reviewData: date,
+      reviewerPhoto: userInfo?.photo,
+      reviewDate: date,
+      propertyId: propertyDetails?._id,
+      agentEmail: propertyDetails?.agentEmail,
     };
     // console.log(userReview);
     axiosSecure
@@ -53,6 +57,7 @@ const PropertyDetails = () => {
         console.log(res.data);
         if (res.data.acknowledged) {
           notifySuccess("Review Submitted");
+          refetchReviews();
         }
       })
       .catch((er) => console.log(er));
@@ -64,7 +69,8 @@ const PropertyDetails = () => {
     setRating(0); // Reset the rating
     document.getElementById("my_modal_1").close(); // Close the modal
   };
-
+  console.log(userReviews);
+  console.log(propertyDetails);
   return (
     <div>
       <h1 className="text-center text-3xl font-bold my-3">Property Details</h1>
@@ -158,6 +164,35 @@ const PropertyDetails = () => {
             </button>
           </div>
         </div>
+      </div>
+      {/* Review Section */}
+      <div className="lg:w-6/12  mt-5 h-96 border-2 border-green-500 rounded-lg overflow-y-scroll mb-5 p-2">
+        <p className="text-center font-bold text-lg">User Reviews</p>
+        {userReviews?.map((review) => (
+          <div
+            key={review._id}
+            className="flex gap-1 border justify-between border-black rounded-md my-1 p-1"
+          >
+            <div className="flex gap-2">
+              <figure className="w-12 h-12 rounded-xl border">
+                <img src={review?.reviewerPhoto} alt="Photo" />
+              </figure>
+              <div className="*:border ">
+                <div className="flex gap-5 text-base">
+                  <p className="flex gap-1 font-bold">{review?.reviewerName}</p>
+                  <p className="flex justify-center items-center  font-bold">
+                    {review?.rating}
+                    <IoIosStar color="yellow" />
+                  </p>
+                </div>
+                <p>{review?.review}</p>
+              </div>
+            </div>
+            <div>
+              <p>{review?.reviewDate}</p>
+            </div>
+          </div>
+        ))}
       </div>
 
       {/* Modal */}
