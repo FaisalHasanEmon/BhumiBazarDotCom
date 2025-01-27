@@ -11,6 +11,7 @@ const ManageProperties = () => {
     return <div>Loading ...</div>;
   }
 
+  // Handle Verify Property
   const handleVerify = (id) => {
     Swal.fire({
       title: "Do you want to verify?",
@@ -36,6 +37,7 @@ const ManageProperties = () => {
       }
     });
   };
+  // Handle Reject Property
   const handleReject = (id) => {
     Swal.fire({
       title: "Do you want to reject this property?",
@@ -61,10 +63,34 @@ const ManageProperties = () => {
       }
     });
   };
-
+  const pendingProperties = properties?.filter(
+    (item) => item.verificationStatus.toLowerCase() === "pending"
+  );
+  const rejectedProperties = properties?.filter(
+    (item) => item.verificationStatus.toLowerCase() === "rejected"
+  );
+  const verifiedProperties = properties?.filter(
+    (item) => item.verificationStatus.toLowerCase() === "verified"
+  );
   return (
     <div>
-      <h1 className="text-center text-xl font-bold">Manage Properties</h1>
+      <h1 className="text-center text-2xl font-bold">Manage Properties</h1>
+      <div className="divider"></div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pr-3 lg:justify-items-center *:text-white *:text-base *:font-bold *:p-2 *:rounded-md">
+        <div className="bg-sky-500 ">
+          <p>Total Properties: {properties.length}</p>
+        </div>
+        <div className="bg-green-500 ">
+          <p>Verified Properties: {verifiedProperties?.length}</p>
+        </div>
+        <div className="bg-yellow-500 ">
+          <p>Pending Properties: {pendingProperties?.length}</p>
+        </div>
+        <div className="bg-red-500 ">
+          <p>Rejected Properties: {rejectedProperties?.length}</p>
+        </div>
+      </div>
+      <div className="divider"></div>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
