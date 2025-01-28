@@ -7,6 +7,7 @@ export default {
     extend: {
       backgroundImage: {
         authLoginBg: "url('/src/assets/auth/authLoginBg.jpg')",
+        bannerBg: "url('/public/homepagebanner.jpg')",
       },
     },
   },

@@ -6,8 +6,38 @@ import {
   MdOutlineSubtitles,
 } from "react-icons/md";
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useWishlist from "../../../hooks/useWishlist";
+import useAxiosSecure from "../../../hooks/useAxiosSecure";
 
 const PropertyCard = ({ property, from = "none" }) => {
+  const [, , refetchWishlist] = useWishlist();
+  const axiosSecure = useAxiosSecure();
+
+  // Delete Selected Wishlist Data
+  const handleDeleteWishedItem = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to remove this property from wishlist!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        const res = await axiosSecure.delete(`/wishedItem/${id}`);
+        refetchWishlist();
+        if (res.data.deletedCount > 0) {
+          Swal.fire({
+            title: "Deleted!",
+            text: "One review has deleted.",
+            icon: "success",
+          });
+        }
+      }
+    });
+  };
   return (
     <div className="card card-compact bg-base-100  shadow-xl">
       <figure className="overflow-clip lg:h-[307px]">
@@ -94,6 +124,20 @@ const PropertyCard = ({ property, from = "none" }) => {
                 Details
               </button>
             </Link>
+          )}
+          {from === "user" && (
+            <div className="flex gap-1 justify-center items-center">
+              <button
+                onClick={() => handleDeleteWishedItem(property?._id)}
+                className="btn border-2 border-red-600 hover:border-orange-600"
+              >
+                Delete
+              </button>
+
+              <button className="btn border-2 border-blue-600 hover:border-orange-600">
+                Offer A Price
+              </button>
+            </div>
           )}
         </div>
       </div>

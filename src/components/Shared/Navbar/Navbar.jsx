@@ -25,7 +25,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100">
+    <div className="navbar bg-base-100 ">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -51,7 +51,7 @@ const Navbar = () => {
             {tabs}
           </ul>
         </div>
-        <Link to="/" className="btn btn-ghost text-2xl font-bold">
+        <Link to="/" className="btn btn-sm text-lg md:text-2xl font-bold">
           BhumiBazarDotCom
         </Link>
       </div>
@@ -60,9 +60,35 @@ const Navbar = () => {
       </div>
       <div className="navbar-end flex gap-3">
         {user?.email ? (
-          <button className="btn btn-primary" onClick={handleLogout}>
-            Logout
-          </button>
+          <div className="dropdown dropdown-end">
+            <div tabIndex={0} role="button" className=" m-1">
+              <figure className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-clip">
+                <img
+                  src={user?.photoURL}
+                  className="h-full w-full object-cover "
+                  alt=""
+                />
+              </figure>
+            </div>
+            <ul
+              tabIndex={0}
+              className="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow"
+            >
+              <li>
+                <p className="border-2 border-gray-400 bg-gray-400 text-white font-bold hover:bg-gray-400 hover:text-white">
+                  {user?.displayName}
+                </p>
+              </li>
+              <li className="mt-1">
+                <button
+                  className="font-bold border-2 border-red-500"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              </li>
+            </ul>
+          </div>
         ) : (
           <>
             <Link to="login">Login</Link>
