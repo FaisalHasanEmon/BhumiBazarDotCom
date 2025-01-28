@@ -6,6 +6,7 @@ import "@smastrom/react-rating/style.css";
 import useReviews from "../../hooks/useReviews";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import { IoMdTime } from "react-icons/io";
 const ReviewerCard = ({ review }) => {
   const [, , refetchReviews] = useReviews();
   const axiosSecure = useAxiosSecure();
@@ -33,6 +34,7 @@ const ReviewerCard = ({ review }) => {
       }
     });
   };
+  console.log(review);
   return (
     <div className="border-2 border-gray-500 p-2 rounded-lg ">
       <div className="flex justify-between">
@@ -52,6 +54,10 @@ const ReviewerCard = ({ review }) => {
             <p className="flex gap-1 justify-start items-center text-base font-bold">
               <MdOutlineEmail />
               {review?.reviewerEmail}
+            </p>
+            <p className="flex gap-1 justify-start items-center text-base font-bold">
+              <IoMdTime />
+              {review?.reviewDate}
             </p>
           </div>
         </div>
