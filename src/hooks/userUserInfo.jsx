@@ -6,7 +6,11 @@ const userUserInfo = () => {
   const { user } = useAuth();
   // const [userInfo, setUserInfo] = useState(null);
   const axiosSecure = useAxiosSecure();
-  const { data: userInfo, isLoading: isUserPending } = useQuery({
+  const {
+    data: userInfo,
+    isLoading: isUserPending,
+    isLoading: isUserLoading,
+  } = useQuery({
     queryKey: [user?.email, "userInfo"],
     queryFn: async () => {
       const res = await axiosSecure.get(`/user/${user.email}`);
