@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import DashboardPageHeading from "../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -98,11 +99,6 @@ const ManageUsers = () => {
             icon: "success",
           });
         }
-        // Swal.fire({
-        //   title: "Success",
-        //   text: "Marked as fraud!",
-        //   icon: "success",
-        // });
       }
     });
   };
@@ -116,23 +112,29 @@ const ManageUsers = () => {
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, Delete!",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Success",
-          text: "User Deleted!",
-          icon: "success",
-        });
+        const res = await axiosSecure.delete(`/users/${id}`);
+        refetchUsers();
+        if (res.data.deletedCount > 0) {
+          Swal.fire({
+            title: "Success",
+            text: "User Deleted!",
+            icon: "success",
+          });
+        }
       }
     });
   };
   return (
     <div>
+      <DashboardPageHeading heading={"Manage Users"}></DashboardPageHeading>
+      <div className="divider"></div>
       <div className="overflow-x-auto">
         <table className="table">
           {/* head */}
           <thead>
-            <tr>
+            <tr className="*:text-xl font-semibold text-black">
               <th>User Info</th>
               <th>Role</th>
               <th>Action</th>
