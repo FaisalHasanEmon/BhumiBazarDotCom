@@ -6,6 +6,7 @@ import { useForm } from "react-hook-form";
 import "./Login.css";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useTheme from "../../../hooks/useTheme";
 
 const Login = () => {
   const { login, googleLogin } = useAuth();
@@ -13,6 +14,7 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPublic = useAxiosPublic();
+  const { notifyError, notifySuccess } = useTheme();
   const {
     register,
     handleSubmit,
@@ -23,10 +25,9 @@ const Login = () => {
   const onSubmit = (data) => {
     login(data.email, data.password)
       .then((res) => {
-        console.log(res);
         navigate(location?.state ? location.state : "/");
       })
-      .then((er) => console.log(er));
+      .then((er) => notifyError(er));
     reset();
   };
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 import userUserInfo from "../../hooks/userUserInfo";
 import {
   FaBangladeshiTakaSign,
@@ -17,6 +17,8 @@ import getFormattedDate from "../../utils/utilities";
 import useTheme from "../../hooks/useTheme";
 import useReviews from "../../hooks/useReviews";
 import { IoIosStar } from "react-icons/io";
+import { Rating } from "@smastrom/react-rating";
+import useWishlist from "../../hooks/useWishlist";
 
 const PropertyDetails = () => {
   // Use States
@@ -28,10 +30,65 @@ const PropertyDetails = () => {
   const { notifySuccess } = useTheme();
   const [userReviews, isReviewsLoading, refetchReviews] = useReviews();
   const axiosSecure = useAxiosSecure();
-  if (isUserPending || isReviewsLoading) {
+  const [wishlistData, isWishlistLoading, refetchWishlist] = useWishlist();
+  const navigate = useNavigate();
+
+  if (isUserPending || isReviewsLoading || isWishlistLoading) {
     return <p>Loading... User Info</p>;
   }
 
+  const getWishlistUser = wishlistData?.filter(
+    (item) => item?.propertyId === propertyDetails?._id
+  );
+
+  const handleAddToWishList = async () => {
+    const {
+      email: userEmail,
+      name: userName,
+      photo: userPhoto,
+      role: userRole,
+      _id: userId,
+    } = userInfo;
+
+    const {
+      _id: propertyId,
+      propertyImage: propertyImage,
+      propertyTitle: propertyTitle,
+      propertyLocation: propertyLocation,
+      agentName: agentName,
+      agentImage: agentImage,
+      verificationStatus: verificationStatus,
+      priceRange: priceRange,
+      agentEmail: agentEmail,
+    } = propertyDetails;
+
+    const wishItem = {
+      userEmail,
+      userName,
+      userPhoto,
+      userRole,
+      userId,
+      propertyId,
+      propertyImage,
+      propertyTitle,
+      propertyLocation,
+      agentName,
+      agentImage,
+      verificationStatus,
+      priceRange,
+      agentEmail,
+    };
+    // console.log(wishItem);
+    const res = await axiosSecure.post("/propertyWishlist", wishItem);
+    // console.log(res.data);
+    if (res.data.insertedId) {
+      refetchWishlist();
+      notifySuccess("Property Added To Wishlist");
+      navigate("/dashboard/wishlist");
+    }
+  };
+
+  // Review
   const handleSubmit = () => {
     const date = getFormattedDate();
 
@@ -154,8 +211,15 @@ const PropertyDetails = () => {
           </div>
           <div className="mt-5 flex gap-1">
             <button
-              disabled={userInfo.role.toLowerCase() === "user" ? false : true}
+              // disabled={userInfo.role.toLowerCase() === "user" ? false : true}
+              disabled={
+                userInfo.role.toLowerCase() === "user" &&
+                getWishlistUser.length === 0
+                  ? false
+                  : true
+              }
               className="btn border-2 border-green-500 font-bold flex"
+              onClick={handleAddToWishList}
             >
               <FaRegFaceGrinHearts />
               Add To Wishlist
@@ -191,7 +255,11 @@ const PropertyDetails = () => {
               >
                 <div className="flex gap-2">
                   <figure className="w-12 h-12 rounded-xl border overflow-clip">
-                    <img src={review?.reviewerPhoto} alt="Photo" />
+                    <img
+                      src={review?.reviewerPhoto}
+                      className="object-cover h-full w-full"
+                      alt="Photo"
+                    />
                   </figure>
                   <div>
                     <div className="flex gap-5 text-base">
@@ -199,8 +267,11 @@ const PropertyDetails = () => {
                         {review?.reviewerName}
                       </p>
                       <p className="flex justify-center items-center  font-bold">
-                        {review?.rating}
-                        <IoIosStar color="yellow" />
+                        <Rating
+                          style={{ maxWidth: 100 }}
+                          value={review.rating}
+                          readOnly
+                        />
                       </p>
                     </div>
                     <p>{review?.review}</p>

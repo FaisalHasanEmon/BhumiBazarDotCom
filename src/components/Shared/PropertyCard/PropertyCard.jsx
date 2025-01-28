@@ -7,7 +7,7 @@ import {
 } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const PropertyCard = ({ property }) => {
+const PropertyCard = ({ property, from = "none" }) => {
   return (
     <div className="card card-compact bg-base-100  shadow-xl">
       <figure className="overflow-clip lg:h-[307px]">
@@ -74,11 +74,27 @@ const PropertyCard = ({ property }) => {
         </div>
 
         <div className="card-actions justify-end">
-          <Link to={`/propertyDetails/${property?._id}`}>
-            <button className="btn border-2 border-blue-600 hover:border-orange-600">
-              Details
-            </button>
-          </Link>
+          {from === "agent" && (
+            <Link to={`/dashboard/update-property/${property?._id}`}>
+              <button
+                disabled={
+                  (property?.verificationStatus).toLowerCase() === "rejected"
+                    ? true
+                    : false
+                }
+                className="btn border-2 border-blue-600 hover:border-orange-600"
+              >
+                Update Property
+              </button>
+            </Link>
+          )}
+          {from === "none" && (
+            <Link to={`/propertyDetails/${property?._id}`}>
+              <button className="btn border-2 border-blue-600 hover:border-orange-600">
+                Details
+              </button>
+            </Link>
+          )}
         </div>
       </div>
     </div>

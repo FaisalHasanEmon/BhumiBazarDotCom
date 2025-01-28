@@ -23,6 +23,8 @@ import AdminRoute from "./AdminRoute";
 import UserRoute from "./UserRoute";
 import PropertyDetails from "../pages/PropertyDetails/PropertyDetails";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import serverDomain from "../hooks/serverDomain";
+import UpdateProperty from "../pages/Dashboard/Agent/UpdateProperty";
 
 const axiosSecure = useAxiosSecure();
 
@@ -51,7 +53,7 @@ const router = createBrowserRouter([
           </PrivateRoute>
         ),
         loader: ({ params }) =>
-          fetch(`http://localhost:5555/propertyDetails/${params.id}`),
+          fetch(`${serverDomain}/propertyDetails/${params.id}`),
       },
       {
         path: "login",
@@ -114,6 +116,16 @@ const router = createBrowserRouter([
             <AddProperty></AddProperty>
           </AgentRoute>
         ),
+      },
+      {
+        path: "update-property/:id",
+        element: (
+          <AgentRoute>
+            <UpdateProperty></UpdateProperty>
+          </AgentRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${serverDomain}/propertyDetails/${params.id}`),
       },
       {
         path: "added-property",

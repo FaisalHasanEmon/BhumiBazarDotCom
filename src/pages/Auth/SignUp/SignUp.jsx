@@ -13,7 +13,11 @@ const SignUp = () => {
   const [seePassword, setSeePassword] = useState(false);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
-  const { notifySuccess } = useTheme();
+  const { notifySuccess, notifyError } = useTheme();
+
+  // Keys and links
+  const image_hosting_key = import.meta.env.VITE_IMBB_API_KEY; //imgbb key
+  const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`; //imgbb hosting api
   //   const
   const {
     register,
@@ -23,41 +27,53 @@ const SignUp = () => {
   } = useForm();
 
   // Step 1:After submitting the sign up form do next
-  const onSubmit = (formData) => {
+  const onSubmit = async (formData) => {
     //Step 2: collecting the user name, email and password create user with "email and password"
-    createUser(formData.email, formData.password)
-      .then((data) => {
-        //Step 3: after successfully creating the user take the user name, email and other information for storing data to database
-        const newUser = {
-          email: data.user.email,
-          name: formData.name,
-          photo: "",
-          role: "user",
-          creationTime: data.user.metadata.creationTime,
-        };
 
-        // Step 3.1: Post or update to database
-        axiosPublic
-          .post("/users", newUser)
-          .then((res) => {
-            console.log(res.data);
-            if (res.data.acknowledged) {
-              notifySuccess("Signup Successful! Now Login");
-            }
-          })
-          .catch((er) => console.log(er));
-        //Step 4: After successfully creating an user with email and password update user name
-        updateUser(formData.name, "")
-          .then(() => {
-            // Step 5: After successfully updating the user name navigate the user to home page
-            logout();
-            navigate("/login");
-          })
-          .catch((er) => console.log(er));
-      })
-      .catch((er) => console.log(er));
+    // Taking the image
+    const photo = { image: formData.photo[0] };
 
-    reset();
+    // uploading the image to imgbb
+    const res = await axiosPublic.post(image_hosting_api, photo, {
+      headers: {
+        "content-type": "multipart/form-data",
+      },
+    });
+
+    if (res.data.success) {
+      createUser(formData.email, formData.password)
+        .then((data) => {
+          //Step 3: after successfully creating the user take the user name, email and other information for storing data to database
+          const newUser = {
+            email: data.user.email,
+            name: formData.name,
+            photo: res.data.data.display_url,
+            role: "user",
+            creationTime: data.user.metadata.creationTime,
+          };
+
+          // Step 3.1: Post or update to database
+          axiosPublic
+            .post("/users", newUser)
+            .then((res) => {
+              if (res.data.acknowledged) {
+                notifySuccess("Signup Successful! Now Login");
+              }
+            })
+            .catch((er) => notifyError(er));
+          //Step 4: After successfully creating an user with email and password update user name
+          updateUser(formData.name, res.data.data.display_url)
+            .then(() => {
+              // Step 5: After successfully updating the user name navigate the user to home page
+              logout();
+              navigate("/login");
+            })
+            .catch((er) => notifyError(er));
+        })
+        .catch((er) => notifyError(er));
+
+      reset();
+    }
   };
   return (
     <div className=" bg-authLoginBg bg-no-repeat  bg-cover md:bg-top bg-center w-screen h-screen absolute left-0 flex justify-center items-center">
@@ -120,6 +136,18 @@ const SignUp = () => {
               >
                 {seePassword ? <LuEye></LuEye> : <LuEyeOff></LuEyeOff>}
               </div>
+            </div>
+            <div className="form-control">
+              <label className="form-control w-full max-w-xs">
+                <div className="label">
+                  <span className="label-text">Upload Your Photo</span>
+                </div>
+                <input
+                  type="file"
+                  className="file-input file-input-bordered w-full max-w-xs"
+                  {...register("photo", { required: true })}
+                />
+              </label>
             </div>
             <div className="form-control mt-6">
               <button className="btn border-2 bg-white border-gray-600 hover:bg-gray-600 hover:text-white hover:font-bold">

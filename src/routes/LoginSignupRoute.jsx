@@ -15,7 +15,6 @@ const LoginSignupRoute = ({ children }) => {
   }
 
   if (!user) {
-    setLoading(false);
     return children;
   }
   return <Navigate state={location.pathname} to="/" replace></Navigate>;

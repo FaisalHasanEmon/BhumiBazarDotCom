@@ -10,7 +10,7 @@ import { IoMdTime } from "react-icons/io";
 const ReviewerCard = ({ review }) => {
   const [, , refetchReviews] = useReviews();
   const axiosSecure = useAxiosSecure();
-  // console.log(review);
+
   const handleDeleteReview = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -34,7 +34,7 @@ const ReviewerCard = ({ review }) => {
       }
     });
   };
-  console.log(review);
+
   return (
     <div className="border-2 border-gray-500 p-2 rounded-lg ">
       <div className="flex justify-between">

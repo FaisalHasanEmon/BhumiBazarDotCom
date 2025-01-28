@@ -6,7 +6,7 @@ import { MdOutlineMailOutline } from "react-icons/md";
 import { IoMdTime } from "react-icons/io";
 
 const Profile = () => {
-  const [userInfo, isUserPending, isUserLoading] = userUserInfo();
+  const [userInfo, isUserPending] = userUserInfo();
   console.log(userInfo);
   if (isUserPending) {
     return <div>Loading...</div>;
