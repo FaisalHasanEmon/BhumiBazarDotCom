@@ -50,17 +50,14 @@ const PropertyDetails = () => {
       propertyId: propertyDetails?._id,
       agentEmail: propertyDetails?.agentEmail,
     };
-    // console.log(userReview);
-    axiosSecure
-      .post("/reviews", userReview)
-      .then((res) => {
-        console.log(res.data);
-        if (res.data.acknowledged) {
-          notifySuccess("Review Submitted");
-          refetchReviews();
-        }
-      })
-      .catch((er) => console.log(er));
+
+    axiosSecure.post("/reviews", userReview).then((res) => {
+      if (res.data.acknowledged) {
+        notifySuccess("Review Submitted");
+        refetchReviews();
+      }
+    });
+
     document.getElementById("my_modal_1").close(); // Close the modal
   };
 
@@ -72,10 +69,6 @@ const PropertyDetails = () => {
   const currentPropertyReviews = userReviews?.filter(
     (item) => item.propertyId === propertyDetails._id
   );
-  console.log(userReviews);
-  console.log(propertyDetails);
-  console.log(propertyDetails._id);
-  console.log(currentPropertyReviews);
 
   return (
     <div>
@@ -194,10 +187,10 @@ const PropertyDetails = () => {
             {currentPropertyReviews?.map((review) => (
               <div
                 key={review._id}
-                className="flex gap-1 border justify-between border-black rounded-md my-1 p-1"
+                className="flex gap-1 border justify-between border-black rounded-xl my-1 p-1"
               >
                 <div className="flex gap-2">
-                  <figure className="w-12 h-12 rounded-xl border">
+                  <figure className="w-12 h-12 rounded-xl border overflow-clip">
                     <img src={review?.reviewerPhoto} alt="Photo" />
                   </figure>
                   <div>

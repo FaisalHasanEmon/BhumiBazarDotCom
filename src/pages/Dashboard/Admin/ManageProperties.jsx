@@ -2,6 +2,7 @@ import React from "react";
 import useProperty from "../../../hooks/useProperty";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import DashboardPageHeading from "../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
 
 const ManageProperties = () => {
   const [properties, isPropertyLoading, refetchProperty] = useProperty();
@@ -74,7 +75,9 @@ const ManageProperties = () => {
   );
   return (
     <div>
-      <h1 className="text-center text-2xl font-bold">Manage Properties</h1>
+      <DashboardPageHeading
+        heading={"Manage Properties"}
+      ></DashboardPageHeading>
       <div className="divider"></div>
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 pr-3 lg:justify-items-center *:text-white *:text-base *:font-bold *:p-2 *:rounded-md">
         <div className="bg-sky-500 ">

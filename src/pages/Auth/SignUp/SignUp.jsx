@@ -6,12 +6,14 @@ import { useForm } from "react-hook-form";
 import "./SignUp.css";
 import useAuth from "../../../hooks/useAuth";
 import useAxiosPublic from "../../../hooks/useAxiosPublic";
+import useTheme from "../../../hooks/useTheme";
 
 const SignUp = () => {
-  const { createUser, user, updateUser } = useAuth();
+  const { createUser, user, updateUser, logout } = useAuth();
   const [seePassword, setSeePassword] = useState(false);
   const navigate = useNavigate();
   const axiosPublic = useAxiosPublic();
+  const { notifySuccess } = useTheme();
   //   const
   const {
     register,
@@ -37,13 +39,19 @@ const SignUp = () => {
         // Step 3.1: Post or update to database
         axiosPublic
           .post("/users", newUser)
-          .then((res) => console.log(res.data))
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.acknowledged) {
+              notifySuccess("Signup Successful! Now Login");
+            }
+          })
           .catch((er) => console.log(er));
         //Step 4: After successfully creating an user with email and password update user name
         updateUser(formData.name, "")
           .then(() => {
             // Step 5: After successfully updating the user name navigate the user to home page
-            navigate("/");
+            logout();
+            navigate("/login");
           })
           .catch((er) => console.log(er));
       })
