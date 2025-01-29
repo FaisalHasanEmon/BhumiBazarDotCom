@@ -1,5 +1,5 @@
 import React from "react";
-import { FaIdBadge } from "react-icons/fa6";
+import { FaHouse, FaIdBadge } from "react-icons/fa6";
 import { MdDeleteForever, MdOutlineEmail } from "react-icons/md";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
@@ -7,10 +7,14 @@ import useReviews from "../../hooks/useReviews";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { IoMdTime } from "react-icons/io";
-const ReviewerCard = ({ review }) => {
+import useProperty from "../../hooks/useProperty";
+const ReviewerCard = ({ review, from = "none" }) => {
+  const [properties, isPropertyLoading] = useProperty();
   const [, , refetchReviews] = useReviews();
   const axiosSecure = useAxiosSecure();
-
+  if (isPropertyLoading) {
+    return <div>Loading...</div>;
+  }
   const handleDeleteReview = (id) => {
     Swal.fire({
       title: "Are you sure?",
@@ -35,6 +39,10 @@ const ReviewerCard = ({ review }) => {
     });
   };
 
+  const myReviewProperty = properties?.find(
+    (property) => property?._id === review?.propertyId
+  );
+  console.log(myReviewProperty);
   return (
     <div className="border-2 border-gray-500 p-2 rounded-lg ">
       <div className="flex justify-between">
@@ -47,6 +55,12 @@ const ReviewerCard = ({ review }) => {
             />
           </figure>
           <div className="flex flex-col flex-wrap justify-start items-start">
+            {from === "user" && (
+              <p className="flex gap-1 text-blue-500 justify-start items-center text-base font-bold">
+                <FaHouse />
+                {myReviewProperty?.propertyTitle}
+              </p>
+            )}
             <p className="flex gap-1 justify-start items-center text-base font-bold">
               <FaIdBadge />
               {review?.reviewerName}
