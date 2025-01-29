@@ -3,12 +3,13 @@ import DashboardLayout from "../../../layouts/DashboardLayout";
 import DashboardPageHeading from "../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
 import useTransactions from "../../../hooks/useTransactions";
 import PropertyCard from "../../../components/Shared/PropertyCard/PropertyCard";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 
 const PropertyBought = () => {
   const [transactions, isTransactionsLoading, refetchTransactions] =
     useTransactions();
   if (isTransactionsLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   console.log(transactions);
   const from = "propertyBought";

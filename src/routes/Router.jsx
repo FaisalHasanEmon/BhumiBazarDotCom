@@ -26,6 +26,7 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import serverDomain from "../hooks/serverDomain";
 import UpdateProperty from "../pages/Dashboard/Agent/UpdateProperty";
 import MakeOffer from "../pages/Dashboard/PaymentPage/MakeOffer";
+import Loading from "../components/Shared/Loadingbar/Loading";
 
 const axiosSecure = useAxiosSecure();
 

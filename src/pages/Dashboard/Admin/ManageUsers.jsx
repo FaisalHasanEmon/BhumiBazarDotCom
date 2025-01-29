@@ -3,6 +3,7 @@ import React from "react";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import DashboardPageHeading from "../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 
 const ManageUsers = () => {
   const axiosSecure = useAxiosSecure();
@@ -20,7 +21,7 @@ const ManageUsers = () => {
   });
 
   if (isUsersLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   // console.log(allUsers);
   // handle make user admin

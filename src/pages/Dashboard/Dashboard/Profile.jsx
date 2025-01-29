@@ -4,12 +4,13 @@ import DashboardPageHeading from "../../../components/Shared/DashboardPageHeadin
 import { FaRegIdBadge, FaRegIdCard } from "react-icons/fa6";
 import { MdOutlineMailOutline } from "react-icons/md";
 import { IoMdTime } from "react-icons/io";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 
 const Profile = () => {
   const [userInfo, isUserPending] = userUserInfo();
-  console.log(userInfo);
+  // console.log(userInfo);
   if (isUserPending) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   return (
     <div>

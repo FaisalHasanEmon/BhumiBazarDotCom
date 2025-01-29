@@ -7,6 +7,7 @@ import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useProperty from "../../../hooks/useProperty";
 import DashboardPageHeading from "../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
 import userUserInfo from "../../../hooks/userUserInfo";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 
 const AddProperty = () => {
   //Custom Hooks
@@ -31,7 +32,7 @@ const AddProperty = () => {
   } = useForm();
 
   if (isUserPending) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
 
   //Step-1: Form data collector function

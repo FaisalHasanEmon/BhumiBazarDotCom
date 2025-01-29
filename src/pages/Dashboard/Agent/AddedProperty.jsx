@@ -2,12 +2,13 @@ import React from "react";
 import useProperty from "../../../hooks/useProperty";
 import userUserInfo from "../../../hooks/userUserInfo";
 import PropertyCard from "../../../components/Shared/PropertyCard/PropertyCard";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 
 const AddedProperty = () => {
   const [userInfo, isUserPending] = userUserInfo();
   const [properties, isPropertyLoading, refetchProperty] = useProperty();
   if (isPropertyLoading || isUserPending) {
-    <div>Loading...</div>;
+    return <Loading></Loading>;
   }
 
   const myAddedProperties = properties?.filter(

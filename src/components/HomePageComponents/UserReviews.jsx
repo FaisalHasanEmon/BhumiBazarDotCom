@@ -1,10 +1,11 @@
 import { Rating } from "@smastrom/react-rating";
 import useReviews from "../../hooks/useReviews";
+import Loading from "../Shared/Loadingbar/Loading";
 
 const UserReviews = () => {
   const [userReviews, isReviewsLoading, refetchReviews] = useReviews();
   if (isReviewsLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   const advertisingReview1 = userReviews?.filter(
     (review) => review?._id === "679a206b3a63cf888e91ecdd"

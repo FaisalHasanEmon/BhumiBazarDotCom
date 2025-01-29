@@ -1,11 +1,12 @@
 import React from "react";
 import useProperty from "../../hooks/useProperty";
 import PropertyCard from "../Shared/PropertyCard/PropertyCard";
+import Loading from "../Shared/Loadingbar/Loading";
 
 const AdvertisingSection = () => {
   const [properties, isPropertyLoading, refetchProperty] = useProperty();
   if (isPropertyLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
 
   const verified = properties.filter(

@@ -2,11 +2,12 @@ import React from "react";
 import useReviews from "../../../hooks/useReviews";
 import DashboardPageHeading from "../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
 import ReviewerCard from "../../../components/ReviewersCards/ReviewerCard";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 
 const ManageReviews = () => {
   const [userReviews, isReviewsLoading, refetchReviews] = useReviews();
   if (isReviewsLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
 
   return (

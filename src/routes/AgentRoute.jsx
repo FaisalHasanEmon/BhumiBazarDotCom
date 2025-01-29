@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import useAuth from "../hooks/useAuth";
 import { Navigate, useLocation } from "react-router-dom";
 import userUserInfo from "../hooks/userUserInfo";
+import Loading from "../components/Shared/Loadingbar/Loading";
 
 const AgentRoute = ({ children }) => {
   const location = useLocation();
@@ -10,7 +11,7 @@ const AgentRoute = ({ children }) => {
   if (loading || isUserPending) {
     return (
       <>
-        <div>Loading...</div>
+        <Loading></Loading>
       </>
     );
   }

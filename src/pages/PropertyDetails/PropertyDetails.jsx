@@ -19,6 +19,7 @@ import useReviews from "../../hooks/useReviews";
 import { IoIosStar } from "react-icons/io";
 import { Rating } from "@smastrom/react-rating";
 import useWishlist from "../../hooks/useWishlist";
+import Loading from "../../components/Shared/Loadingbar/Loading";
 
 const PropertyDetails = () => {
   // Use States
@@ -34,7 +35,7 @@ const PropertyDetails = () => {
   const navigate = useNavigate();
 
   if (isUserPending || isReviewsLoading || isWishlistLoading) {
-    return <p>Loading... User Info</p>;
+    return <Loading></Loading>;
   }
 
   const getWishlistUser = wishlistData?.filter(

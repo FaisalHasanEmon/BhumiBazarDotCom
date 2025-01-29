@@ -8,12 +8,13 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import { IoMdTime } from "react-icons/io";
 import useProperty from "../../hooks/useProperty";
+import Loading from "../Shared/Loadingbar/Loading";
 const ReviewerCard = ({ review, from = "none" }) => {
   const [properties, isPropertyLoading] = useProperty();
   const [, , refetchReviews] = useReviews();
   const axiosSecure = useAxiosSecure();
   if (isPropertyLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   const handleDeleteReview = (id) => {
     Swal.fire({

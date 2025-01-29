@@ -3,12 +3,13 @@ import useReviews from "../../../hooks/useReviews";
 import DashboardPageHeading from "../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
 import ReviewerCard from "../../../components/ReviewersCards/ReviewerCard";
 import userUserInfo from "../../../hooks/userUserInfo";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 
 const MyReviews = () => {
   const [userReviews, isReviewsLoading, refetchReviews] = useReviews();
   const [userInfo, isUserPending] = userUserInfo();
   if (isReviewsLoading || isUserPending) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   const myReviews = userReviews?.filter(
     (review) => review.reviewerEmail === userInfo.email

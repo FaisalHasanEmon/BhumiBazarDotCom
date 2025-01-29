@@ -1,10 +1,11 @@
+import Loading from "../../components/Shared/Loadingbar/Loading";
 import PropertyCard from "../../components/Shared/PropertyCard/PropertyCard";
 import useProperty from "../../hooks/useProperty";
 
 const AllProperties = () => {
   const [properties, isPropertyLoading] = useProperty();
   if (isPropertyLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
   const verifiedProperties = properties?.filter(
     (items) => items?.verificationStatus.toLowerCase() === "verified"

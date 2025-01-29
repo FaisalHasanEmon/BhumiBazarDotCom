@@ -4,6 +4,7 @@ import DashboardPageHeading from "../../../components/Shared/DashboardPageHeadin
 import userUserInfo from "../../../hooks/userUserInfo";
 import useAxiosSecure from "../../../hooks/useAxiosSecure";
 import useTheme from "../../../hooks/useTheme";
+import Loading from "../../../components/Shared/Loadingbar/Loading";
 const RequestedProperties = () => {
   const axiosSecure = useAxiosSecure();
   const { notifySuccess } = useTheme();
@@ -13,7 +14,7 @@ const RequestedProperties = () => {
   const [userInfo, isUserPending] = userUserInfo();
 
   if (isTransactionsLoading) {
-    return <div>Loading...</div>;
+    return <Loading></Loading>;
   }
 
   // Get my transaction information
