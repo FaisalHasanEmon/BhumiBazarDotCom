@@ -143,9 +143,25 @@ const PropertyCard = ({ property, from = "none" }) => {
           {from === "propertyBought" && (
             <div className="flex gap-1 justify-center items-center">
               {(property?.agentValidation).toLowerCase() === "pending" && (
-                <div className="btn bg-yellow-500 text-white font-bold">
-                  Pending
+                <div className=" font-bold flex justify-between items-center gap-2 border-2 mt-5 bg-slate-200 border-gray-500 p-2 rounded-lg">
+                  <p>Agent Acceptance: </p>
+                  <p className="bg-yellow-500 text-white p-2 rounded-lg">
+                    Pending
+                  </p>
                 </div>
+              )}
+              {(property?.agentValidation).toLowerCase() === "rejected" && (
+                <div className=" font-bold flex justify-between items-center gap-2 border-2 mt-5 bg-slate-200 border-gray-500 p-2 rounded-lg">
+                  <p>Agent Acceptance: </p>
+                  <p className="bg-red-500 text-white p-2 rounded-lg">
+                    Rejected
+                  </p>
+                </div>
+              )}
+              {(property?.agentValidation).toLowerCase() === "accepted" && (
+                <button className="btn min-h-10 h-10  bg-green-500 text-white p-2 rounded-lg font-bold">
+                  Pay {property?.offeredPrice}TK
+                </button>
               )}
             </div>
           )}

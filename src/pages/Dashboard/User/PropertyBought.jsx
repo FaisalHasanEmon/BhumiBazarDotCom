@@ -26,7 +26,7 @@ const PropertyBought = () => {
         </>
       ) : (
         <>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pr-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 pr-4 mb-56">
             {transactions?.map((property) => (
               <PropertyCard
                 key={property._id}
