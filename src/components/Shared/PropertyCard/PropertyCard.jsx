@@ -105,18 +105,18 @@ const PropertyCard = ({ property, from = "none" }) => {
 
         <div className="card-actions justify-end">
           {from === "agent" && (
-            <Link to={`/dashboard/update-property/${property?._id}`}>
-              <button
-                disabled={
-                  (property?.verificationStatus).toLowerCase() === "rejected"
-                    ? true
-                    : false
-                }
-                className="btn border-2 border-blue-600 hover:border-orange-600"
-              >
+            <button
+              disabled={
+                (property?.verificationStatus).toLowerCase() === "rejected"
+                  ? true
+                  : false
+              }
+              className="btn border-2 border-blue-600 hover:border-orange-600"
+            >
+              <Link to={`/dashboard/update-property/${property?._id}`}>
                 Update Property
-              </button>
-            </Link>
+              </Link>
+            </button>
           )}
           {from === "none" && (
             <Link to={`/propertyDetails/${property?._id}`}>
