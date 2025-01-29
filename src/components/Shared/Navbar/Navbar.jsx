@@ -62,11 +62,11 @@ const Navbar = () => {
         {user?.email ? (
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className=" m-1">
-              <figure className="w-12 h-12 md:w-14 md:h-14 rounded-full overflow-clip">
+              <figure className="w-12 h-12 md:w-14 md:h-14 border-2 border-gray-300 rounded-full overflow-clip">
                 <img
                   src={user?.photoURL}
                   className="h-full w-full object-cover "
-                  alt=""
+                  alt="Profile"
                 />
               </figure>
             </div>

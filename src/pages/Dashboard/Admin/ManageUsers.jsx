@@ -22,10 +22,10 @@ const ManageUsers = () => {
   if (isUsersLoading) {
     return <div>Loading...</div>;
   }
-  console.log(allUsers);
+  // console.log(allUsers);
   // handle make user admin
   const handleMakeAdmin = (id) => {
-    console.log("Make admin id", id);
+    // console.log("Make admin id", id);
     Swal.fire({
       title: "Make this user admin?",
       text: "You won't be able to revert this!",
@@ -50,7 +50,7 @@ const ManageUsers = () => {
     });
   };
   const handleMakeAgent = (id) => {
-    console.log("Make Agent id", id);
+    // console.log("Make Agent id", id);
     Swal.fire({
       title: "Make this user agent?",
       text: "You won't be able to revert this!",
@@ -74,10 +74,10 @@ const ManageUsers = () => {
       }
     });
   };
-  const handleMarkAsFraud = (id) => {
-    console.log("Mark as fraud id", id);
+  const handleMarkAsFraud = (id, email) => {
+    // console.log("Mark as fraud id", id);
     Swal.fire({
-      title: "Mark as fraud?",
+      title: "Mark as fraud and remove all of his added properties?",
       text: "You won't be able to revert this!",
       icon: "warning",
       showCancelButton: true,
@@ -86,24 +86,33 @@ const ManageUsers = () => {
       confirmButtonText: "Yes, Mark as Fraud!",
     }).then(async (result) => {
       if (result.isConfirmed) {
-        const queryOperation = { id: id, role: "agent", fraud: true };
+        const queryOperation = {
+          id: id,
+          role: "agent",
+          fraud: true,
+        };
         const res = await axiosSecure.patch(
           "/users/fraudAgent",
           queryOperation
         );
         refetchUsers();
-        if (res.data.modifiedCount === 1) {
-          Swal.fire({
-            title: "Success",
-            text: "User upgraded to admin!",
-            icon: "success",
-          });
+        if (res.data.modifiedCount > 0) {
+          const resDeleteProperties = await axiosSecure.delete(
+            `/delete-fraud-properties/${email}`
+          );
+          if (resDeleteProperties.data.deletedCount > 0) {
+            Swal.fire({
+              title: "Success",
+              text: "Agent marked as fraud removed all of this added properties!",
+              icon: "success",
+            });
+          }
         }
       }
     });
   };
   const handleDeleteUser = (id) => {
-    console.log("Delete user id", id);
+    // console.log("Delete user id", id);
     Swal.fire({
       title: "Delete this user?",
       text: "You won't be able to revert this!",
@@ -195,7 +204,9 @@ const ManageUsers = () => {
                   {(user?.role).toLowerCase() === "agent" &&
                     (user?.fraud === true || (
                       <button
-                        onClick={() => handleMarkAsFraud(user?._id)}
+                        onClick={() =>
+                          handleMarkAsFraud(user?._id, user?.email)
+                        }
                         className="btn w-[100px] btn-xs font-bold text-bold text-white  bg-red-500 hover:bg-red-500 hover:border-2 hover:border-gray-500"
                       >
                         Mark As Fraud
@@ -203,10 +214,7 @@ const ManageUsers = () => {
                     ))}
                   {(user?.role).toLowerCase() === "agent" &&
                     user?.fraud === true && (
-                      <button
-                        onClick={() => handleMarkAsFraud(user?._id)}
-                        className="btn w-[100px] btn-xs font-bold text-bold text-white  bg-red-800 hover:bg-red-800 hover:border-2 hover:border-gray-500"
-                      >
+                      <button className="btn w-[100px] btn-xs font-bold text-bold text-white  bg-red-800 hover:bg-red-800 hover:border-2 hover:border-gray-500">
                         Fraud Agent
                       </button>
                     )}
