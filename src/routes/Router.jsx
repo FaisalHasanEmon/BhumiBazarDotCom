@@ -25,6 +25,7 @@ import PropertyDetails from "../pages/PropertyDetails/PropertyDetails";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import serverDomain from "../hooks/serverDomain";
 import UpdateProperty from "../pages/Dashboard/Agent/UpdateProperty";
+import MakeOffer from "../pages/Dashboard/PaymentPage/MakeOffer";
 
 const axiosSecure = useAxiosSecure();
 
@@ -100,6 +101,16 @@ const router = createBrowserRouter([
             <Wishlist></Wishlist>
           </UserRoute>
         ),
+      },
+      {
+        path: "/dashboard/wishlist/make-offer/:id",
+        element: (
+          <UserRoute>
+            <MakeOffer></MakeOffer>
+          </UserRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${serverDomain}/propertyWishlist/${params.id}`),
       },
       {
         path: "property-bought",

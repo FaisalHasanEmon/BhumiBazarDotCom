@@ -133,10 +133,20 @@ const PropertyCard = ({ property, from = "none" }) => {
               >
                 Delete
               </button>
-
-              <button className="btn border-2 border-blue-600 hover:border-orange-600">
-                Offer A Price
-              </button>
+              <Link to={`/dashboard/wishlist/make-offer/${property._id}`}>
+                <button className="btn border-2 border-blue-600 hover:border-orange-600">
+                  Make An Offer
+                </button>
+              </Link>
+            </div>
+          )}
+          {from === "propertyBought" && (
+            <div className="flex gap-1 justify-center items-center">
+              {(property?.agentValidation).toLowerCase() === "pending" && (
+                <div className="btn bg-yellow-500 text-white font-bold">
+                  Pending
+                </div>
+              )}
             </div>
           )}
         </div>
