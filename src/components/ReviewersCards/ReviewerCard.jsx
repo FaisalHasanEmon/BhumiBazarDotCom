@@ -46,35 +46,62 @@ const ReviewerCard = ({ review, from = "none" }) => {
   return (
     <div className="border-2 border-gray-500 p-2 rounded-lg ">
       <div className="flex justify-between">
-        <div className="flex gap-2 flex-wrap">
-          <figure className="h-20 w-20 overflow-clip border-2 rounded-lg">
-            <img
-              src={review?.reviewerPhoto}
-              className="object-cover h-full w-full"
-              alt="Reviewer"
-            />
-          </figure>
-          <div className="flex flex-col flex-wrap justify-start items-start">
-            {from === "user" && (
-              <p className="flex gap-1 text-blue-500 justify-start items-center text-base font-bold">
-                <FaHouse />
-                {myReviewProperty?.propertyTitle}
-              </p>
-            )}
-            <p className="flex gap-1 justify-start items-center text-base font-bold">
-              <FaIdBadge />
-              {review?.reviewerName}
-            </p>
-            <p className="flex gap-1 justify-start items-center text-base font-bold">
-              <MdOutlineEmail />
-              {review?.reviewerEmail}
-            </p>
-            <p className="flex gap-1 justify-start items-center text-base font-bold">
-              <IoMdTime />
-              {review?.reviewDate}
-            </p>
-          </div>
-        </div>
+        {/* 1st part */}
+        {from === "user" ? (
+          <>
+            <div className="flex gap-2 flex-wrap">
+              <figure className="h-20 w-20 overflow-clip border-2 rounded-lg">
+                <img
+                  src={myReviewProperty?.propertyImage}
+                  className="object-cover h-full w-full"
+                  alt="Reviewer"
+                />
+              </figure>
+              <div className="flex flex-col flex-wrap justify-start items-start">
+                <p className="flex gap-1 text-blue-500 justify-start items-center text-base font-bold">
+                  <FaHouse />
+                  {myReviewProperty?.propertyTitle}
+                </p>
+
+                <p className="flex gap-1 justify-start items-center text-base font-bold">
+                  <FaIdBadge />
+                  {myReviewProperty?.agentName}
+                </p>
+                <p className="flex gap-1 justify-start items-center text-base font-bold">
+                  <IoMdTime />
+                  {review?.reviewDate}
+                </p>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className="flex gap-2 flex-wrap">
+              <figure className="h-20 w-20 overflow-clip border-2 rounded-lg">
+                <img
+                  src={review?.reviewerPhoto}
+                  className="object-cover h-full w-full"
+                  alt="Reviewer"
+                />
+              </figure>
+              <div className="flex flex-col flex-wrap justify-start items-start">
+                <p className="flex gap-1 justify-start items-center text-base font-bold">
+                  <FaIdBadge />
+                  {review?.reviewerName}
+                </p>
+                <p className="flex gap-1 justify-start items-center text-base font-bold">
+                  <MdOutlineEmail />
+                  {review?.reviewerEmail}
+                </p>
+                <p className="flex gap-1 justify-start items-center text-base font-bold">
+                  <IoMdTime />
+                  {review?.reviewDate}
+                </p>
+              </div>
+            </div>
+          </>
+        )}
+
         <div className="text-4xl flex justify-center items-center">
           <button onClick={() => handleDeleteReview(review?._id)}>
             <MdDeleteForever color="red" />
