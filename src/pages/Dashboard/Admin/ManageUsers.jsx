@@ -215,7 +215,7 @@ const ManageUsers = () => {
                     ))}
                   {(user?.role).toLowerCase() === "agent" &&
                     user?.fraud === true && (
-                      <button className="btn w-[100px] btn-xs font-bold text-bold text-white  bg-red-800 hover:bg-red-800 hover:border-2 hover:border-gray-500">
+                      <button className=" w-[100px]  font-black text-bold text-red-500 ">
                         Fraud Agent
                       </button>
                     )}
