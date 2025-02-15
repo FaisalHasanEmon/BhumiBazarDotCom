@@ -27,10 +27,6 @@ This is a **Real Estate Platform** built using the MERN stack, where users can *
 
 ---
 
-Sure! Here’s the updated **Technologies** section with a clear division between **Front-end** and **Back-end** technologies, including their respective logos.
-
----
-
 ## 🚀 Technologies
 
 ### **Front-end Technologies**
