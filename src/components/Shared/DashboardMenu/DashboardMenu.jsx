@@ -13,7 +13,7 @@ const DashboardMenu = () => {
     <>
       <li>
         <NavLink to="/" className="lg:text-xl font-bold">
-          BhumiBazarDotCom
+          BhumiBazar
         </NavLink>
       </li>
       <div className="divider"></div>

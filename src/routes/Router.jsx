@@ -28,6 +28,7 @@ import UpdateProperty from "../pages/Dashboard/Agent/UpdateProperty";
 import MakeOffer from "../pages/Dashboard/PaymentPage/MakeOffer";
 import Loading from "../components/Shared/Loadingbar/Loading";
 import AllPropertiesTest from "../../TEST/AllPropertiesTest";
+import StripePayment from "../pages/Dashboard/User/StripePayment/StripePayment";
 
 const axiosSecure = useAxiosSecure();
 
@@ -45,7 +46,6 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoute>
             <AllProperties></AllProperties>
-            {/* <AllPropertiesTest></AllPropertiesTest> */}
           </PrivateRoute>
         ),
       },
@@ -89,6 +89,7 @@ const router = createBrowserRouter([
         path: "profile",
         element: <Profile></Profile>,
       },
+      // User Section Starts
       {
         path: "my-reviews",
         element: (
@@ -123,6 +124,19 @@ const router = createBrowserRouter([
           </UserRoute>
         ),
       },
+      {
+        path: "/dashboard/property-bought/payment/:id",
+        element: (
+          <UserRoute>
+            <StripePayment></StripePayment>
+          </UserRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`${serverDomain}/make-payment/${params.id}`),
+      },
+      // User Section Ends
+
+      // Agent Section Starts
       {
         path: "add-property",
         element: (
@@ -165,6 +179,9 @@ const router = createBrowserRouter([
           </AgentRoute>
         ),
       },
+      // Agent Section Ends
+
+      // Admin Section Starts
       {
         path: "manage-properties",
         element: (
@@ -189,6 +206,7 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      // Agent Section Ends
     ],
   },
 ]);

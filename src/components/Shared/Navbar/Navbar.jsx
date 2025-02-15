@@ -52,7 +52,7 @@ const Navbar = () => {
           </ul>
         </div>
         <Link to="/" className="btn btn-sm text-lg md:text-2xl font-bold">
-          BhumiBazarDotCom
+          BhumiBazar
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
@@ -91,8 +91,9 @@ const Navbar = () => {
           </div>
         ) : (
           <>
-            <Link to="login">Login</Link>
-            <Link to="signup">Register</Link>
+            <Link to="login">
+              <button className="btn">Login</button>
+            </Link>
           </>
         )}
       </div>

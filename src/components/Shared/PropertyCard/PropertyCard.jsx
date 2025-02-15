@@ -38,6 +38,7 @@ const PropertyCard = ({ property, from = "none" }) => {
       }
     });
   };
+
   return (
     <div className="card card-compact bg-base-100  shadow-xl">
       <figure className="overflow-clip lg:h-[307px]">
@@ -159,9 +160,11 @@ const PropertyCard = ({ property, from = "none" }) => {
                 </div>
               )}
               {(property?.agentValidation).toLowerCase() === "accepted" && (
-                <button className="btn min-h-10 h-10  bg-green-500 text-white p-2 rounded-lg font-bold">
-                  Pay {property?.offeredPrice}TK
-                </button>
+                <Link to={`/dashboard/property-bought/payment/${property._id}`}>
+                  <button className="btn min-h-10 h-10  bg-green-500 text-white p-2 rounded-lg font-bold">
+                    Pay {property?.offeredPrice}TK
+                  </button>
+                </Link>
               )}
             </div>
           )}
