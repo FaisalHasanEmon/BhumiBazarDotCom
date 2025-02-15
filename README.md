@@ -1,8 +1,6 @@
-Here's a well-structured `README.md` file for your Real Estate Platform project:
-
 ---
 
-# 🏡 Real Estate Platform
+# 🏡 BhumiBazar
 
 ## 📌 Introduction
 
@@ -11,13 +9,10 @@ This is a **Real Estate Platform** built using the MERN stack, where users can *
 ## 📖 Table of Contents
 
 - [Features](#features)
-- [Installation](#installation)
+- [Technologies](#technologies)
 - [Usage](#usage)
-- [Configuration](#configuration)
 - [Dependencies](#dependencies)
 - [Live Demo](#live-demo)
-- [Contributors](#contributors)
-- [License](#license)
 
 ---
 
@@ -65,7 +60,7 @@ Sure! Here’s the updated **Technologies** section with a clear division betwee
 1. **Users** can:
 
    - Browse and wishlist properties.
-   - Buy properties through Stripe.
+   - Buy properties through Stripe(Under Development).
    - Leave reviews on purchased properties.
 
 2. **Agents** can:
@@ -81,25 +76,7 @@ Sure! Here’s the updated **Technologies** section with a clear division betwee
 
 ---
 
-## ⚙️ Configuration
-
-Create a `.env.local` file for **Firebase, MongoDB, and Stripe API keys**:
-
-```
-VITE_FIREBASE_API_KEY=your-api-key
-VITE_FIREBASE_AUTH_DOMAIN=your-auth-domain
-VITE_FIREBASE_PROJECT_ID=your-project-id
-VITE_FIREBASE_STORAGE_BUCKET=your-storage-bucket
-VITE_FIREBASE_MESSAGING_SENDER_ID=your-sender-id
-VITE_FIREBASE_APP_ID=your-app-id
-
-VITE_STRIPE_PUBLIC_KEY=your-stripe-public-key
-VITE_BACKEND_URL=http://localhost:5000
-```
-
----
-
-## 📦 Dependencies
+## 📦 Dependencies / Packages
 
 Sure! Here’s the updated **Dependencies** section with the packages listed in a serial format:
 
