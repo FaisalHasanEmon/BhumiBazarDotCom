@@ -1,5 +1,3 @@
----
-
 # 🏡 BhumiBazar
 
 ## 📌 Introduction
@@ -76,30 +74,24 @@ Sure! Here’s the updated **Technologies** section with a clear division betwee
 
 ---
 
-## 📦 Dependencies / Packages
+Here's your dependencies section in a table format with their logos:
 
-Sure! Here’s the updated **Dependencies** section with the packages listed in a serial format:
+### 📦 Dependencies / Packages
 
----
-
-## 📦 Dependencies
-
-This project uses the following dependencies:
-
-1. **@smastrom/react-rating** (`^1.5.0`)
-2. **@tanstack/react-query** (`^5.64.2`)
-3. **axios** (`^1.7.9`)
-4. **firebase** (`^11.2.0`)
-5. **react** (`^18.3.1`)
-6. **react-dom** (`^18.3.1`)
-7. **react-hook-form** (`^7.54.2`)
-8. **react-icons** (`^5.4.0`)
-9. **react-router-dom** (`^7.1.3`)
-10. **react-spinners** (`^0.15.0`)
-11. **react-toastify** (`^11.0.3`)
-12. **sweetalert2** (`^11.15.10`)
-
----
+| Package                                                                            | Version     | Logo                                                                                      |
+| ---------------------------------------------------------------------------------- | ----------- | ----------------------------------------------------------------------------------------- |
+| **[@smastrom/react-rating](https://www.npmjs.com/package/@smastrom/react-rating)** | `^1.5.0`    | ⭐️                                                                                       |
+| **[@tanstack/react-query](https://www.npmjs.com/package/@tanstack/react-query)**   | `^5.64.2`   | 🔍                                                                                        |
+| **[axios](https://www.npmjs.com/package/axios)**                                   | `^1.7.9`    | ![Axios](https://axios-http.com/assets/logo.svg)                                          |
+| **[firebase](https://www.npmjs.com/package/firebase)**                             | `^11.2.0`   | ![Firebase](https://firebase.google.com/downloads/brand-guidelines/PNG/logo-standard.png) |
+| **[react](https://www.npmjs.com/package/react)**                                   | `^18.3.1`   | ![React](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)              |
+| **[react-dom](https://www.npmjs.com/package/react-dom)**                           | `^18.3.1`   | ![React DOM](https://upload.wikimedia.org/wikipedia/commons/a/a7/React-icon.svg)          |
+| **[react-hook-form](https://www.npmjs.com/package/react-hook-form)**               | `^7.54.2`   | 🎣                                                                                        |
+| **[react-icons](https://www.npmjs.com/package/react-icons)**                       | `^5.4.0`    | 🔤                                                                                        |
+| **[react-router-dom](https://www.npmjs.com/package/react-router-dom)**             | `^7.1.3`    | 🚏                                                                                        |
+| **[react-spinners](https://www.npmjs.com/package/react-spinners)**                 | `^0.15.0`   | ⏳                                                                                        |
+| **[react-toastify](https://www.npmjs.com/package/react-toastify)**                 | `^11.0.3`   | 🔔                                                                                        |
+| **[sweetalert2](https://www.npmjs.com/package/sweetalert2)**                       | `^11.15.10` | 🍬                                                                                        |
 
 ## 🌐 Live Demo
 
