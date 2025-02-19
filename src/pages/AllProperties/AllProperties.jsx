@@ -18,7 +18,7 @@ const AllProperties = () => {
   return (
     <div>
       {/* Search Input */}
-      <div className="mb-5 text-left flex justify-start items-center gap-1">
+      <div className="pt-5 mb-5 text-left flex justify-start items-center gap-1">
         <label className="input w-1/2 md:w-3/12 input-bordered flex items-center gap-2">
           <input
             type="text"
