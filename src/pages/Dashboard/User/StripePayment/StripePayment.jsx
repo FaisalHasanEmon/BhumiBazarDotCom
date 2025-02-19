@@ -7,20 +7,22 @@ import CheckoutForm from "./CheckOutForm";
 import DashboardPageHeading from "../../../../components/Shared/DashboardPageHeading/DashboardPageHeading";
 
 // Add publishable key
-const stripePromise = loadStripe("pk_test_6pRNASCoBOKtIshFeQd4XMUh");
+const stripePromise = loadStripe(import.meta.env.VITE_Payment_GateWay_PK);
 const StripePayment = () => {
   const loader = useLoaderData();
   if (!loader) {
     return <Loading></Loading>;
   }
   console.log(loader);
+  const { offeredPrice } = loader;
+
   return (
     <div>
       <DashboardPageHeading
         heading={"Make Payment With Stripe"}
       ></DashboardPageHeading>
       <Elements stripe={stripePromise}>
-        <CheckoutForm></CheckoutForm>
+        <CheckoutForm offeredPrice={offeredPrice}></CheckoutForm>
       </Elements>
     </div>
   );
