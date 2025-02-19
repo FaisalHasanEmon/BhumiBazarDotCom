@@ -4,6 +4,7 @@ import Navbar from "../components/Shared/Navbar/Navbar";
 
 const MainLayout = () => {
   const location = useLocation();
+
   let showNavFooter =
     (location.pathname === "/login") | (location.pathname === "/signup")
       ? true
@@ -11,10 +12,12 @@ const MainLayout = () => {
 
   return (
     <div className="container mx-auto px-5">
-      {showNavFooter || <Navbar></Navbar>}
-      <div className="min-h-[calc(100vh-278px)] mt-5">
+      {/* {showNavFooter || <Navbar></Navbar>} */}
+      <Navbar></Navbar>
+      <div className="mt-[70px] min-h-[calc(100vh-278px)] ">
         <Outlet></Outlet>
       </div>
+      {/* <Footer></Footer> */}
       {showNavFooter || <Footer></Footer>}
     </div>
   );

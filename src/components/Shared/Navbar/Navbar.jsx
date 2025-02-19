@@ -15,6 +15,9 @@ const Navbar = () => {
       <li>
         <NavLink to="allproperties">All Properties</NavLink>
       </li>
+      <li>
+        <NavLink to="about-us">About Us</NavLink>
+      </li>
       {user && (
         <>
           <li>
@@ -25,7 +28,7 @@ const Navbar = () => {
     </>
   );
   return (
-    <div className="navbar bg-base-100 ">
+    <div className="navbar bg-base-100 fixed top-0 mx-auto left-0 z-50 md:px-5">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">

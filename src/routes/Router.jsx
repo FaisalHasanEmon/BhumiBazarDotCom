@@ -29,6 +29,7 @@ import MakeOffer from "../pages/Dashboard/PaymentPage/MakeOffer";
 import Loading from "../components/Shared/Loadingbar/Loading";
 import AllPropertiesTest from "../../TEST/AllPropertiesTest";
 import StripePayment from "../pages/Dashboard/User/StripePayment/StripePayment";
+import AboutUs from "../pages/AboutUs/AboutUs";
 
 const axiosSecure = useAxiosSecure();
 
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>,
+      },
+      {
+        path: "about-us",
+        element: <AboutUs></AboutUs>,
       },
       {
         path: "allproperties",

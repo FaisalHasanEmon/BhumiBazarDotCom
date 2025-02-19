@@ -76,7 +76,7 @@ const SignUp = () => {
     }
   };
   return (
-    <div className=" bg-authLoginBg bg-no-repeat  bg-cover md:bg-top bg-center w-screen h-screen absolute left-0 flex justify-center items-center">
+    <div className="min-h-[calc(100vh-78px)]  bg-authLoginBg bg-no-repeat  bg-cover md:bg-top bg-center w-screen  absolute left-0 flex justify-center items-center">
       <div className="container mx-auto px-5  flex justify-center items-center bg-transparent ">
         <div className=" card bg-white/5 backdrop-blur-lg w-full max-w-sm shrink-0 border border-white  shadow-slate-900 shadow-2xl">
           <form onSubmit={handleSubmit(onSubmit)} className="card-body">

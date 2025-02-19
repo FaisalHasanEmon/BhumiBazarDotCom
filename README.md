@@ -70,12 +70,6 @@ This is a **Real Estate Platform** built using the MERN stack, where users can *
 
 ---
 
-Here's your dependencies section in a table format with their logos:
-
-### 📦 Dependencies / Packages
-
-Here's your dependencies section in a clean table format without logos:
-
 ### 📦 Dependencies / Packages
 
 | Package                                                                            | Version     |

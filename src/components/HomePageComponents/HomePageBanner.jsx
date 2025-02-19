@@ -5,8 +5,9 @@ import { Link, Links } from "react-router-dom";
 const HomePageBanner = () => {
   const { user } = useAuth();
   return (
+    // min-h-[450px]
     <div
-      className="hero min-h-[450px] rounded-lg"
+      className="hero min-h-screen rounded-lg"
       style={{
         backgroundImage: "url(homepagebanner.jpg)",
       }}

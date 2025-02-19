@@ -11,7 +11,7 @@ const Home = () => {
   const [userInfo] = userUserInfo();
 
   return (
-    <div>
+    <div className="pt-2 ">
       <HomePageBanner></HomePageBanner>
       <div className="my-20 ">
         <div className="divider  mt-2 mb-2 ">
