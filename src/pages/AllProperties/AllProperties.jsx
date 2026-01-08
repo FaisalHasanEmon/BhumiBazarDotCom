@@ -7,13 +7,9 @@ const AllProperties = () => {
   const [searchLocation, setSearchLocation] = useState("");
   const [properties, isPropertyLoading] = useProperty(searchLocation); // Pass location to the hook
 
-  // if (isPropertyLoading) {
-  //   return <Loading />;
-  // }
-
-  const verifiedProperties = properties?.filter(
-    (items) => items?.verificationStatus.toLowerCase() === "verified"
-  );
+  const verifiedProperties = (
+    Array.isArray(properties) ? properties : []
+  ).filter((items) => items?.verificationStatus.toLowerCase() === "verified");
 
   return (
     <div>
@@ -49,13 +45,13 @@ const AllProperties = () => {
       {isPropertyLoading ? (
         <Loading></Loading>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
           {verifiedProperties.length > 0 ? (
             verifiedProperties?.map((property) => (
               <PropertyCard key={property?._id} property={property} />
             ))
           ) : (
-            <div>
+            <div className="md:col-span-2 lg:col-span-4 flex justify-center items-center ">
               <h1 className="text-center text-3xl font-bold">
                 No Verified Property Found
               </h1>
