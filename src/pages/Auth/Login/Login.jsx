@@ -16,7 +16,7 @@ import useTheme from "../../../hooks/useTheme";
 const Login = () => {
   const { login, googleLogin } = useAuth();
   const [seePassword, setSeePassword] = useState(false);
-  const [loginAs, setLoginAs] = useState(null);
+  // const [loginAs, setLoginAs] = useState(null);
   const navigate = useNavigate();
   const location = useLocation();
   const axiosPublic = useAxiosPublic();
@@ -28,35 +28,28 @@ const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => {
-    login(data.email, data.password)
-      .then((res) => {
-        navigate(location?.state ? location.state : "/");
-      })
-      .then((er) => notifyError(er));
-    reset();
+  // Email Password Login
+  const onSubmit = async (data) => {
+    try {
+      await login(data.email, data.password);
+      notifySuccess("Login Successful");
+      reset();
+    } catch (err) {
+      console.error(err);
+      notifyError(err?.message || "Login failed");
+    }
   };
   // Handle Login as user button for quick login section
-  const handleLoginAsUser = () => {
-    const userCredentials = { email: "jhony@gmail.com", password: "Jhony12!" };
-    setLoginAs(userCredentials);
-  };
+  const handleLoginAsUser = () =>
+    reset({ email: "jhony@gmail.com", password: "Jhony12!" });
+
   // Handle Login as agent button for quick login section
-  const handleLoginAsAgent = () => {
-    const userCredentials = {
-      email: "agent01@gmail.com",
-      password: "Agent12!",
-    };
-    setLoginAs(userCredentials);
-  };
+  const handleLoginAsAgent = () =>
+    reset({ email: "agent01@gmail.com", password: "Agent12!" });
+
   // Handle Login as admin button for quick login section
-  const handleLoginAsAdmin = () => {
-    const userCredentials = {
-      email: "admin01@gmail.com",
-      password: "Admin12!",
-    };
-    setLoginAs(userCredentials);
-  };
+  const handleLoginAsAdmin = () =>
+    reset({ email: "admin01@gmail.com", password: "Admin12!" });
 
   const handleLoginWithGoogle = () => {
     googleLogin().then((res) => {
@@ -72,6 +65,7 @@ const Login = () => {
         .then(navigate(location?.state ? location.state : "/"));
     });
   };
+
   return (
     <div className="bg-no-repeat ">
       <div className=" bg-authLoginBg min-h-[calc(100vh-78px)]   bg-cover md:bg-top bg-center w-screen  absolute left-0 flex justify-center items-center ">
@@ -79,9 +73,10 @@ const Login = () => {
           <div className=" card bg-white/5 backdrop-blur-lg w-full max-w-sm shrink-0 border border-white  shadow-slate-900 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="card-body">
               <h2 className="text-center text-3xl">Login </h2>
+              {/* Demo Login Buttons */}
               <div className="form-control">
                 <label className="label">
-                  <span className="label-text">Quick Login</span>
+                  <span className="label-text">Demo Login</span>
                 </label>
                 <div className="flex justify-center items-center gap-1">
                   <button
@@ -104,7 +99,9 @@ const Login = () => {
                   </button>
                 </div>
               </div>
+              {/* Divider */}
               <div className="divider my-0"></div>
+              {/* Email Input */}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
@@ -113,10 +110,10 @@ const Login = () => {
                   type="email"
                   placeholder="email"
                   className="input input-bordered"
-                  defaultValue={loginAs?.email}
                   {...register("email", { required: true })}
                 />
               </div>
+              {/* Password Input */}
               <div className="form-control relative">
                 <label className="label">
                   <span className="label-text">Password</span>
@@ -125,7 +122,6 @@ const Login = () => {
                   type={seePassword ? "text" : "password"}
                   placeholder="password"
                   className="input input-bordered"
-                  defaultValue={loginAs?.password}
                   {...register("password", {
                     required: true,
                     pattern:
@@ -151,8 +147,12 @@ const Login = () => {
                   {seePassword ? <LuEye></LuEye> : <LuEyeOff></LuEyeOff>}
                 </div>
               </div>
+              {/* Login Button */}
               <div className="form-control mt-6">
-                <button className="btn border-2 bg-white border-gray-600 hover:bg-gray-600 hover:text-white hover:font-bold">
+                <button
+                  className="btn border-2 bg-white border-gray-600 hover:bg-gray-600 hover:text-white hover:font-bold"
+                  type="button"
+                >
                   Login
                 </button>
               </div>
